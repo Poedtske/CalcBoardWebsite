@@ -1,0 +1,77 @@
+Nieuwe:
+EVE dakwerken
+Leen De Cock
+Seduti
+Studio Dermaux
+
+Geen sponsors meer:
+BodyComplex
+Francois Pauwels
+Keukens DOVY
+Mani Wash
+Marina Wilfried
+Medipro
+Montagebedrijf Mariën
+Nahm Spirit
+Tom De Neve
+
+
+  {
+    "naam":"Tom De Neve logo",
+    "link":"https://www.tomdeneve.be/",
+    "logo":"logo's/Tom De Neve.png",
+    "rang":""
+  },
+  {
+    "naam":"Nahm Spirit logo",
+    "link":"https://nahmspirit.com/nl",
+    "logo":"logo's/Nahm Spirit.png",
+    "rang":""
+  },
+
+  {
+    "naam":"Montagebedrijf Marien logo",
+    "link":"#",
+    "logo":"logo's/Montagebedrijf Marien.png",
+    "rang":""
+  },
+
+{
+    "naam":"Medipro logo",
+    "link":"http://www.medi-pro.be/",
+    "logo":"logo's/Medipro.png",
+    "rang":""
+  },
+
+  {
+    "naam":"BodyComplex logo",
+    "link":"https://www.bodycomplex.be/",
+    "logo":"logo's/BodyComplex.png",
+    "rang":""
+  },
+
+{
+    "naam":"Francois Pauwels logo",
+    "link":"https://www.desocialekaart.be/fiches/538538/algemeen",
+    "logo":"logo's/Francois Pauwels.png",
+    "rang":""
+  },
+
+{
+    "naam":"Keukens DOVY logo",
+    "link":"https://www.dovykeukens.be/",
+    "logo":"logo's/Keukens DOVY.jpg",
+    "rang":""
+  },
+{
+    "naam":"Mani Wash logo",
+    "link":"#",
+    "logo":"logo's/Mani Wash.png",
+    "rang":""
+  },
+  {
+    "naam":"Marina _ Wilfried logo",
+    "link":"https://arnowi.github.io/Marina/",
+    "logo":"logo's/Marina _ Wilfried.png",
+    "rang":""
+  },

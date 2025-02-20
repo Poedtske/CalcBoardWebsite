@@ -1,0 +1,89 @@
+/* Event grid container */
+.event_grid {
+  display: grid;
+  gap: 10px;
+  background-color: none;
+  padding: 10px;
+}
+
+/* Event grid item */
+.event_grid_item {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  flex-direction: column;
+  color: black;
+  border-radius: 12px; /* Round the corners of the grid item */
+  transition: transform 0.3s, background-color 0.3s; /* Smooth transitions for scaling and background change */
+}
+
+/* Hover effect for event grid items */
+.event_grid_item:hover {
+  transform: scale(1.05); /* Slightly scale the item when hovered */
+  background-color: #f0f0f0; /* Darken the background on hover */
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 20%; /* Make the sidebar wider */
+  background-color: #333; /* Darker background for the sidebar */
+  position: fixed; /* Fix the sidebar in place */
+  top: 0; /* Attach the sidebar to the top */
+  right: -250px; /* Initially hide the sidebar off-screen */
+  height: 30%; /* Smaller height for the sidebar */
+  border: 2px solid grey;
+  z-index: 1000; /* Ensure it stays above other content */
+  padding: 20px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5); /* Add shadow for a pop-out effect */
+  color: white; /* Make text white for better visibility */
+  overflow-y: auto; /* Allow scrolling inside the sidebar if content overflows */
+  transition: right 0.3s ease-out; /* Slide-in animation */
+}
+
+/* Sidebar button styles */
+.sidebar button {
+  display: block;
+  margin: 15px 0; /* Add spacing between buttons */
+  background-color: #444; /* Dark button background */
+  color: white; /* White text */
+  border: none;
+  padding: 10px;
+  border-radius: 5px; /* Round the corners of the button */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect for sidebar buttons */
+.sidebar button:hover {
+  background-color: #555; /* Darken the button when hovered */
+}
+
+/* Sidebar content styles */
+.sidebar div {
+  padding: 10px;
+  font-size: 14px; /* Adjust font size for readability */
+}
+
+/* Active state to slide the sidebar in */
+.sidebar.open {
+  right: 0; /* Sidebar slides in */
+}
+
+/* Make the event grid items a bit larger */
+.event_grid_item span {
+  font-size: 16px; /* Adjust the font size inside grid items */
+}
+
+/* In your Layout.module.css */
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 1em;
+}
+.success {
+  color: green;
+  font-weight: bold;
+  margin-top: 1em;
+}

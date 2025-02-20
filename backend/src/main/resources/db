@@ -1,0 +1,84 @@
+ __________________
+|THIS IS FOR DOCKER|
+|__________________|
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+spring:
+  application:
+    name: EA_Project
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+
+  servlet:
+    multipart:
+      enabled: true          # Enable file uploads
+      max-file-size: 5MB     # Maximum file size (adjust as needed)
+      max-request-size: 10MB # Maximum request size (adjust as needed)
+      file-size-threshold: 2KB # File size threshold for temporary storage
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+
+--------------------------------------------------------------------------
+ __________________
+|THIS IS FOR LOCAL |
+|__________________|
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+spring:
+  application:
+    name: EA_Project
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/fanfare_borcht
+    username: root
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+
+  servlet:
+    multipart:
+      enabled: true  # Enable file uploads
+      max-file-size: 5MB  # Maximum file size (adjust as needed)
+      max-request-size: 10MB  # Maximum request size (adjust as needed)
+      file-size-threshold: 2KB  # File size threshold for temporary storage
+
+spring.mvc.hiddenmethod.filter.enabled: true
+

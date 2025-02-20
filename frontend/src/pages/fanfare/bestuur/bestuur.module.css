@@ -1,0 +1,35 @@
+/*bestuur*/
+
+.main {
+  display: grid;
+  gap: 2rem;
+  padding-inline: 10%;
+}
+
+/* Flexbox container for items */
+.flex_container {
+  padding-block: 2.5rem;
+  display: flex; /* Corrected from flexbox to flex */
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/* Individual flex items */
+.flex_item {
+  margin: 10px; /* Adds space between the items */
+}
+
+.flex_item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%; /* Rounded images */
+}
+
+/* Optional: Styling for images inside sections if needed */
+.main section img {
+  display: block;
+  padding: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10%;
+}

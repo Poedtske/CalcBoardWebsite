@@ -1,0 +1,30 @@
+/* WebshopPage.module.css */
+.main {
+  padding: 20px;
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.productName {
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.productPrice {
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.sidebar {
+  padding: 20px;
+}
+
+.sidebar button {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,16 @@
+FRONTEND:
+-show exceptions when failing
+-documentation
+
+
+
+----------------------------------------------------------------------
+
+EXTRA
+
+DOCKER:
+-making it work on DOCKER (issue with resources/images directory, probably permission)
+
+FRONTEND:
+-using context correctly
+-prevent multiple apicalls on the same page (home has like 4 api calls to get events????)

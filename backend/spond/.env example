@@ -1,0 +1,6 @@
+SPOND_USERNAME=''
+SPOND_PASSWORD=''
+SPOND_GROUP_ID=''
+URL='http://localhost:8080' locale
+#URL='http://spring-boot-app:8080' docker
+API_KEY="helloThere"

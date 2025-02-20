@@ -1,0 +1,44 @@
+.main {
+  display: grid;
+  justify-items: center;
+  /* padding-top: 0px; */
+}
+
+@media (min-width: calc(60rem)) {
+  .main section {
+    font-size: 150%;
+  }
+}
+
+.main section {
+  display: grid;
+  width: 100%;
+  align-self: center;
+  text-align: left;
+  gap: 1rem;
+  padding-block: 2em;
+  text-align: justify;
+}
+.main section p {
+  padding-inline: 2em;
+}
+
+@media (max-width: calc(60rem - 1px)) {
+  .main section p {
+    padding-inline: 1em;
+    font-size: 150%;
+    text-align: center;
+  }
+}
+
+.main section img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logoJeugd {
+  width: 20em;
+  padding-block: 2em;
+  padding-inline: auto;
+  background-color: black;
+}

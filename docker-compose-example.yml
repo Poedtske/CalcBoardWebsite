@@ -1,0 +1,62 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db # Consistent container name
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+      MYSQL_USER: product_user
+      MYSQL_PASSWORD: product_user_password
+      MYSQL_DATABASE: product
+    volumes:
+      - mysql_data:/var/lib/mysql # Persist database data
+    networks:
+      - shared-network # Unified network for all services
+
+  spring-boot-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: spring_boot_app # Consistent container name
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql # Ensures mysql starts before this service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/product # Use the container name as the host
+      SPRING_DATASOURCE_USERNAME: product_user
+      SPRING_DATASOURCE_PASSWORD: product_user_password
+    restart: unless-stopped # Automatically restart on failures
+    networks:
+      - shared-network # Unified network for all services
+
+  react-app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: react_app # Consistent container name
+    ports:
+      - "80:80"
+    depends_on:
+      - spring-boot-app # Ensure the backend is available before frontend starts
+    networks:
+      - shared-network # Unified network for all services
+
+  spond:
+    build:
+      context: ./backend/spond
+      dockerfile: Dockerfile
+    container_name: spond_service # Consistent container name
+    restart: unless-stopped # Automatically restart on failures
+    depends_on:
+      - spring-boot-app
+    networks:
+      - shared-network # Unified network for all services
+
+volumes:
+  mysql_data: # Named volume for persisting MySQL data
+
+networks:
+  shared-network:
+    driver: bridge # Single network for backend and frontend services

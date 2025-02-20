@@ -1,0 +1,410 @@
+[
+  {
+    "naam":"vishandelanemoontje",
+    "link":"http://www.vishandelanemoontje.be/",
+    "logo":"'tAnemoontje.jpg",
+    "rang":2,
+    "geld":100
+  },
+
+  {
+  "naam":"Al_kopie",
+  "link":"https://www.alkopie.com/",
+  "logo":"alKopie.png",
+  "rang":4,
+  "geld":25
+  },
+
+  {
+    "naam":"autocenter Mertens",
+    "link":"http://www.autocentermertens.be/nlbe/start.aspx",
+    "logo":"autocenterMertens.jpg",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"B_K Getinte Ruiten",
+    "link":"https://www.bkgetinteruiten.be/",
+    "logo":"B&KGetinteRuiten.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Bakkerij TImmermans",
+    "link":"https://bakkersonline.be/be-nl/timmermans/category/9352",
+    "logo":"bakkerijTimmermans.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"Bart Laeremans",
+    "link":"https://nl.wikipedia.org/wiki/Bart_Laeremans_(politicus)",
+    "logo":"bartLaeremans.png",
+    "rang":2,
+    "geld":100
+  },
+
+  {
+    "naam":"Bike Center Mertens",
+    "link":"https://www.bikecentermertens.be/",
+    "logo":"bikeCenterMertens.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Ben Van Sande",
+    "link":"https://www.benvansande.be/",
+    "logo":"benVanSande.png",
+    "rang":1,
+    "geld":400
+  },
+
+  {
+    "naam":"Cafe Galoiske",
+    "link":"https://zekaa.com/galoiske-t",
+    "logo":"cafeGaloiske.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Cafe in de Veldkant",
+    "link":null,
+    "logo":"cafeInDeVeldkant.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"Immo DEWAELE",
+    "link":"https://www.dewaele.com/nl/cbi-immo-is-nu-dewaele",
+    "logo":"immoDewaele.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Chris Selleslagh",
+    "link":"https://nl.wikipedia.org/wiki/Chris_Selleslagh",
+    "logo":"chrisSelleslagh.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Colora",
+    "link":"https://www.colora.be/nl/",
+    "logo":"colora.png",
+    "rang":2,
+    "geld":100
+  },
+
+  {
+    "naam":"Cornelissen",
+    "link":"https://www.beenhouwerijcornelissen.be/",
+    "logo":"cornelissen.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Crelan",
+    "link":"https://www.crelan.be/nl/particulieren",
+    "logo":"crelan.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"De Herberg van Grimbergen",
+    "link":"https://herbergvangrimbergen.be/",
+    "logo":"deHerbergVanGrimbergen.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"De Kantine van het Bos",
+    "link":"http://www.wazzaah.be/kantine/",
+    "logo":"deKantineVanHetBos.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"Dranken Van Campenhout",
+    "link":"https://grimbergsehandelaars.be/drankencentrale-van-campenhout/",
+    "logo":"drankenVanCampenhout.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Enigma",
+    "link":"https://enigma.be/",
+    "logo":"enigma.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"EVN Pharma",
+    "link":"https://www.apotheekborgt.be/",
+    "logo":"EVNPharma.png",
+    "rang":3,
+    "geld":75
+  },
+
+  {
+    "naam":"Fleur Louise",
+    "link":"https://fleurlouise.com/index.php/16-2/",
+    "logo":"fleurLouise.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Forrier",
+    "link":"https://forrier.sereni.be/nl/",
+    "logo":"forrier.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Fort verzekeringen",
+    "link":"https://fort.be/nl/home/",
+    "logo":"fortVerzekeringen.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Frituur _t Pleintje Borgt",
+    "link":"https://www.tpleintjeborgt.be/",
+    "logo":"frituur'tPleintjeBorgt.jpg",
+    "rang":2,
+    "geld":100
+  },
+
+  {
+    "naam":"Gammatex",
+    "link":"https://www.gammatec.be/nl/home/",
+    "logo":"gammatec.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Hygge vakantiewoning",
+    "link":"https://www.hygge-vakantiewoning.be/",
+    "logo":"hyggeVakantiewoning.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"JoVelo",
+    "link":"https://www.fietsreparateur.be/",
+    "logo":"joVelo.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"Kapsalon Ann",
+    "link":"https://www.openingsurengids.be/kapsalon-ann/grimbergen/1",
+    "logo":"kapsalonAnn.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"Karakter Invest",
+    "link":"http://www.karakterinvest.be/",
+    "logo":"karakterInvest.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"Keurslager VanDamme",
+    "link":"https://keurslagervandamme.be/",
+    "logo":"vanDammeKeurslager.jpg",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"ROLLVOLET",
+    "link":"https://www.rollvolet.be/",
+    "logo":"rollvolet.jpg",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Lombaerts-Van Laer",
+    "link":"https://www.juweliervanlaergrimbergen.be/",
+    "logo":"lombaertsVanLaer.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"MGMS",
+    "link":null,
+    "logo":"MGMS.png",
+    "rang":2,
+    "geld":100
+  },
+
+  {
+    "naam":"Music Company",
+    "link":"https://www.music-company.be/",
+    "logo":"musicCompany.png",
+    "rang":2,
+    "geld":100
+  },
+
+  {
+    "naam":"Optiek De Temmerman",
+    "link":"https://optiek-detemmerman.be/",
+    "logo":"optiekDeTemmerman.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Orchis",
+    "link":"https://www.orchisraes.be/",
+    "logo":"orchis.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"Read All",
+    "link":"https://www.openingsuren.vlaanderen/read-all/1800-vilvoorde/grimbergsesteenweg-90",
+    "logo":"readAll.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"Spira",
+    "link":"https://www.spira.be/",
+    "logo":"spira.png",
+    "rang":2,
+    "geld":100
+  },
+
+  {
+    "naam":"Toyota De Bruyn",
+    "link":"https://www.toyotadebruyn.be/about/vilvoorde",
+    "logo":"toyotaDeBruyn.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Veranda Thomas",
+    "link":"https://verandathomas.be/",
+    "logo":"verandaThomas.jpg",
+    "rang":2,
+    "geld":100
+  },
+
+  {
+    "naam":"Vince Verspecht",
+    "link":"https://www.vincebvba.be/",
+    "logo":"vinceVerspecht.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"Wim Rondas - Fintro",
+    "link":"https://www.fintro.be/fr/public/particuliers",
+    "logo":"wimRondasFintro.png",
+    "rang":3,
+    "geld":50
+  },
+
+  {
+    "naam":"EVE dakwerken",
+    "link":null,
+    "logo":"EVEDakwerken.jpg",
+    "rang":2,
+    "geld":150
+  },
+
+  {
+    "naam":"Leen De Cock",
+    "link":"https://www.leendecock.be/",
+    "logo":"leenDeCock.jpg",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"Seduti",
+    "link":"https://www.seduti.be/",
+    "logo":"seduti.png",
+    "rang":2,
+    "geld":100
+  },
+
+  {
+    "naam":"Studio Dermaux",
+    "link":null,
+    "logo":"studioDermaux.png",
+    "rang":4,
+    "geld":25
+  },
+
+  {
+    "naam":"'t Tuintje",
+    "link":"https://www.ttuintje.be/",
+    "logo":"tuintje.png",
+    "rang":2,
+    "geld":150
+  },
+
+  {
+    "naam":"Carrefour Market Grimbergen",
+    "link":"https://winkels.carrefour.be/nl/s/carrefour/carrefour-market-grimbergen/204",
+    "logo":"carrefourMarketGrimbergen.png",
+    "rang":2,
+    "geld":0
+  },
+
+  {
+    "naam":"Planten en potterie Van Doorslaer",
+    "link":"https://www.plantenvandoorslaer.be/",
+    "logo":"PlantenEnPotterieVanDoorslaer.png",
+    "rang":3,
+    "geld":0
+  },
+
+  {
+    "naam":"Kapsalon Sven",
+    "link":"https://kapsalonsven.be/",
+    "logo":"kapsalonSven.png",
+    "rang":3,
+    "geld":0
+  },
+
+  {
+    "naam":"Keuken Dovy Grimbergen",
+    "link":"https://www.dovykeukens.be/toonzalen/keukens-vlaams-brabant/keukens-grimbergen/",
+    "logo":"keukenDovyGrimbergen.png",
+    "rang":2,
+    "geld":100
+  }
+
+]
