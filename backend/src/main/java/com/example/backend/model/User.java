@@ -1,6 +1,6 @@
 package com.example.backend.model;
 
-import com.example.backend.dto.ProductPaymentDTO;
+
 import com.example.backend.enums.Role;
 import com.example.backend.exceptions.AppException;
 import jakarta.persistence.*;
@@ -45,14 +45,11 @@ public class User implements UserDetails {
     @Column(nullable = false) // Ensure a role is always set
     private Role role = Role.USER; // Default role
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Invoice> invoices = new HashSet<>();
-
     public User() {
 
     }
 
-    public User(Long id, String firstName, String lastName, String password, String email, Role role, Set<Invoice> invoices) {
+    public User(Long id, String firstName, String lastName, String password, String email, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -147,35 +144,4 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-
-    public Set<Invoice> getInvoices() {
-        return invoices;
-    }
-
-    public Invoice addInvoice(Invoice i){
-        this.invoices.add(i);
-        return i;
-    }
-
-    public Invoice removeInvoice(Invoice i){
-        this.invoices.remove(i);
-        return i;
-    }
-
-    //gets the invoice that isn't paid
-    public Invoice getActiveInvoice(){
-        return invoices.stream().filter(invoice -> invoice.getPaid()==false).findFirst().orElse(null);
-    }
-
-    //sets not paid invoice on paid and creates new unpaid invoice
-    public void pay(){
-        Invoice i= getActiveInvoice();
-        if(i.getProducts().isEmpty()&&i.getTickets().isEmpty()){
-            throw new AppException("Cart is empty", HttpStatus.BAD_REQUEST);
-        }
-
-
-        i.setPaid(true);
-        this.addInvoice(new Invoice(this));
-    }
 }

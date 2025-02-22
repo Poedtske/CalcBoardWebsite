@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider) // Use the provided authentication provider.
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT authentication filter.
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/public/**", "/public/**", "/images/**", "/favicon.ico", "/register", "/css/**", "/js/**", "/login").permitAll() // Public access endpoints.
+                        .requestMatchers("/api/public/**", "/public/**", "/images/**", "/favicon.ico", "/register", "/css/**", "/js/**", "/login", "/status").permitAll() // Public access endpoints.
                         .requestMatchers("/admin/**", "/api/admin/**").hasAuthority(Role.ADMIN.getValue()) // Admin role access for certain paths.
                         .requestMatchers("/profile", "/cart", "/api/secure/**").authenticated() // Require authentication for these paths.
                 )
@@ -69,27 +69,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /**
-     * Configures security filter chain for API endpoints that require API key authentication.
-     * This configuration applies only to the `/api/secure/spondEvents/**` path.
-     *
-     * @param http the HttpSecurity instance used to configure the security settings.
-     * @return the configured SecurityFilterChain instance.
-     * @throws Exception if there is an error during configuration.
-     */
-    @Bean
-    @Order(1)
-    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF protection.
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Apply CORS policy.
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless sessions.
-                .addFilterBefore(new ApiKeyAuthFilter(), UsernamePasswordAuthenticationFilter.class) // Add API key authentication filter.
-                .securityMatcher("api/secure/spondEvents/**") // Apply this configuration only to the specified path.
-                .httpBasic(Customizer.withDefaults()); // Disable basic HTTP authentication.
 
-        return http.build();
-    }
 
     /**
      * Configures the CORS settings for the application.

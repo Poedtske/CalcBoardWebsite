@@ -3,7 +3,7 @@ services:
     image: mysql:8.0
     container_name: mysql_db # Consistent container name
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: P@ssw0rd
       MYSQL_USER: product_user
@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     container_name: spring_boot_app # Consistent container name
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       - mysql # Ensures mysql starts before this service
     environment:
@@ -43,16 +43,6 @@ services:
     networks:
       - shared-network # Unified network for all services
 
-  spond:
-    build:
-      context: ./backend/spond
-      dockerfile: Dockerfile
-    container_name: spond_service # Consistent container name
-    restart: unless-stopped # Automatically restart on failures
-    depends_on:
-      - spring-boot-app
-    networks:
-      - shared-network # Unified network for all services
 
 volumes:
   mysql_data: # Named volume for persisting MySQL data
