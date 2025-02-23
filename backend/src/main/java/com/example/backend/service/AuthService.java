@@ -5,9 +5,7 @@ import com.example.backend.controller.AuthenticationResponse;
 import com.example.backend.dto.CredentialsDto;
 import com.example.backend.dto.SignUpDto;
 import com.example.backend.enums.Role;
-import com.example.backend.model.Invoice;
 import com.example.backend.model.User;
-import com.example.backend.repository.InvoiceRepository;
 import com.example.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,10 +44,7 @@ public class AuthService {
      */
     private final AuthenticationManager authenticationManager;
 
-    /**
-     * InvoiceRepository used to interact with the Invoice entity in the database.
-     */
-    private final InvoiceRepository invoiceRepository;
+
 
     /**
      * Registers a new user in the system by saving their details to the database, creating an associated invoice,
@@ -70,13 +65,9 @@ public class AuthService {
         // Save the user to the database
         userRepository.save(user);
 
-        // Create an invoice for the user
-        Invoice i = new Invoice(user);
-        invoiceRepository.save(i);
 
-        // Link the invoice to the user
-        user.addInvoice(i);
-        userRepository.save(user);
+
+
 
         // Generate a JWT token with the user's role
         Map<String, Object> role = new HashMap<>();

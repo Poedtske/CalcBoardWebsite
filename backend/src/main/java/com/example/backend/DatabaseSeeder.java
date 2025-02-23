@@ -1,11 +1,7 @@
 package com.example.backend;
 
-import com.example.backend.enums.Category;
 import com.example.backend.enums.Role;
-import com.example.backend.model.Invoice;
-import com.example.backend.model.Product;
 import com.example.backend.model.User;
-import com.example.backend.repository.ProductRepository;
 import com.example.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -25,7 +21,6 @@ import java.util.Optional;
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
-    private final ProductRepository productRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
@@ -39,7 +34,6 @@ public class DatabaseSeeder implements CommandLineRunner {
         System.out.println("Seeding database...");
 
         List<User> userList=new ArrayList<>();
-        List<Product> productList=new ArrayList<>();
 
         // Create admin user
         User admin = User.builder()
@@ -49,7 +43,6 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .email("david.van.steertegem@ehb.be")
                 .role(Role.ADMIN)
                 .build();
-        admin.addInvoice(new Invoice(admin));
         userList.add(admin);
 
         User admin2=User.builder()
@@ -59,7 +52,6 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .email("robbe.poedts@hotmail.be")
                 .role(Role.ADMIN)
                 .build();
-        admin2.addInvoice(new Invoice(admin));
         userList.add(admin2);
 
         // Save admin user
@@ -70,94 +62,9 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .email("robbe.poedts@student.ehb.be")
                 .role(Role.USER)
                 .build();
-        user.addInvoice(new Invoice(user));
         userList.add(user);
 
         userList.stream().forEach(u->userRepository.save(u));
-
-
-        //adding products
-        productList.add( Product.builder()
-                .name("Vanille Wafels met Chocolade")
-                .price(BigDecimal.valueOf(7))
-                .available(true)
-                .category(Category.FOOD)
-                .img("chocoladewafel.avif")
-                .build());
-
-        productList.add( Product.builder()
-                .name("Vanille Wafels")
-                .price(BigDecimal.valueOf(7))
-                .available(true)
-                .category(Category.FOOD)
-                .img("vanillewafel.avif")
-                .build());
-        productList.add( Product.builder()
-                .name("Boterwafels Chocolade")
-                .price(BigDecimal.valueOf(5))
-                .available(true)
-                .category(Category.FOOD)
-                .img("chocolade-boterwafel.avif")
-                .build());
-        productList.add( Product.builder()
-                .name("Boterwafels")
-                .price(BigDecimal.valueOf(5))
-                .available(true)
-                .category(Category.FOOD)
-                .img("boterwafel.avif")
-                .build());
-        productList.add( Product.builder()
-                .name("Frangipane rond")
-                .price(BigDecimal.valueOf(5))
-                .available(true)
-                .category(Category.FOOD)
-                .img("franchipane-rond.avif")
-                .build());
-        productList.add( Product.builder()
-                .name("Frangipane")
-                .price(BigDecimal.valueOf(5))
-                .available(true)
-                .category(Category.FOOD)
-                .img("franchipane.avif")
-                .build());
-        productList.add( Product.builder()
-                .name("Carré-confituur")
-                .price(BigDecimal.valueOf(5))
-                .available(true)
-                .category(Category.FOOD)
-                .img("carré-confituur.avif")
-                .build());
-        productList.add( Product.builder()
-                .name("Gevulde Wafeltjes")
-                .price(BigDecimal.valueOf(5))
-                .available(true)
-                .category(Category.FOOD)
-                .img("gevuldeWafels.avif")
-                .build());
-
-        productList.add( Product.builder()
-                .name("Cola")
-                .price(BigDecimal.valueOf(1.5))
-                .available(true)
-                .category(Category.DRINK)
-                .img("cola.jpg")
-                .build());
-        productList.add( Product.builder()
-                .name("Ice-Tea")
-                .price(BigDecimal.valueOf(1.5))
-                .available(true)
-                .category(Category.DRINK)
-                .img("ice-tea.avif")
-                .build());
-        productList.add( Product.builder()
-                .name("Fanta")
-                .price(BigDecimal.valueOf(1.5))
-                .available(true)
-                .category(Category.DRINK)
-                .img("fanta.jpg")
-                .build());
-        productList.stream().forEach(product -> productRepository.save(product));
-
 
         // Mark database as seeded
         markDatabaseAsSeeded();

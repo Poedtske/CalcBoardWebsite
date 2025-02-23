@@ -20,10 +20,6 @@ WORKDIR /app
 # Copy the built JAR file from the previous stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Create a directory for static resources
-RUN mkdir -p /app/images/products
-RUN mkdir -p /app/images/events
-
 # Expose the port on which the Spring Boot application will run
 EXPOSE 8080
 
