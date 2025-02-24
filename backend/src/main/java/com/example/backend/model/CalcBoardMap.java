@@ -1,8 +1,11 @@
-package com.example.yourproject.model;
+package com.example.backend.model;
 
 import jakarta.persistence.*;
+import com.example.backend.model.User;
+
 
 @Entity
+
 @Table(name = "calc_board_maps")
 public class CalcBoardMap {
 
@@ -19,15 +22,19 @@ public class CalcBoardMap {
     @Column(nullable = false)
     private String img;
 
+    @Column(nullable = false)
+    private boolean freeOrNot;
+
     // Constructors
     public CalcBoardMap() {
     }
 
-    public CalcBoardMap(int id, String game, String mapName, String img) {
+    public CalcBoardMap(int id, String game, String mapName, String img, boolean freeOrNot) {
         this.id = id;
         this.game = game;
         this.mapName = mapName;
         this.img = img;
+        this.freeOrNot = freeOrNot;
     }
 
     // Getters and Setters
@@ -61,6 +68,27 @@ public class CalcBoardMap {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public boolean getFreeOrNot() {
+        return freeOrNot;
+    }
+    public void setFreeOrNot(boolean freeOrNot) {
+        this.freeOrNot = freeOrNot;
+    }
+
+    // many to one because map can belong to one user
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    // Getter and Setter for user
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // ToString method for debugging purposes
