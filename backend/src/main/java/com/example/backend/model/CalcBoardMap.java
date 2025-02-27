@@ -1,6 +1,7 @@
 package com.example.backend.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.example.backend.model.User;
 
 
@@ -13,13 +14,14 @@ public class CalcBoardMap {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String game;
 
-    @Column(name = "map_name", nullable = false)
+    @JsonProperty("name")
+    @Column(name = "map_name", nullable = true)
     private String mapName;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String img;
 
     @Column(nullable = false)
