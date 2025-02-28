@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider) // Use the provided authentication provider.
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT authentication filter.
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/public/**", "/public/**", "/images/**", "/favicon.ico", "/register", "/css/**", "/js/**", "/login", "/status").permitAll() // Public access endpoints.
+                        .requestMatchers("/","/api/public/**", "/public/**", "/images/**", "/favicon.ico", "/register", "/css/**", "/js/**", "/login", "/status").permitAll() // Public access endpoints.
                         .requestMatchers("/admin/**", "/api/admin/**").hasAuthority(Role.ADMIN.getValue()) // Admin role access for certain paths.
                         .requestMatchers("/profile", "/cart", "/api/secure/**").authenticated() // Require authentication for these paths.
                         .requestMatchers("/maps/save").authenticated()
