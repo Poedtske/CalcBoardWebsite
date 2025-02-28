@@ -45,6 +45,20 @@ public class User implements UserDetails {
     @Column(nullable = false) // Ensure a role is always set
     private Role role = Role.USER; // Default role
 
+
+    // relationship with maps
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CalcBoardMap> calcBoardMaps = new ArrayList<>();
+
+    // Getter and Setter for calcBoardMaps
+    public List<CalcBoardMap> getCalcBoardMaps() {
+        return calcBoardMaps;
+    }
+
+    public void setCalcBoardMaps(List<CalcBoardMap> calcBoardMaps) {
+        this.calcBoardMaps = calcBoardMaps;
+    }
+
     public User() {
 
     }
@@ -66,6 +80,16 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.role = role;
+    }
+
+    public User(Long id, String firstName, String lastName, String password, String email, Role role, List<CalcBoardMap> calcBoardMaps) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.calcBoardMaps = calcBoardMaps;
     }
 
     // Getters and setters

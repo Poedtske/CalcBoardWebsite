@@ -35,7 +35,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: react_app # Consistent container name
+    container_name: react_app # Coistent container name
     ports:
       - "80:80"
     depends_on:
