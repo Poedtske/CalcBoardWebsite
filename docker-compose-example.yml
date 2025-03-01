@@ -31,19 +31,6 @@ services:
     networks:
       - shared-network # Unified network for all services
 
-  react-app:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: react_app # Coistent container name
-    ports:
-      - "80:80"
-    depends_on:
-      - spring-boot-app # Ensure the backend is available before frontend starts
-    networks:
-      - shared-network # Unified network for all services
-
-
 volumes:
   mysql_data: # Named volume for persisting MySQL data
 

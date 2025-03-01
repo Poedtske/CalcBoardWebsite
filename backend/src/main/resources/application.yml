@@ -11,6 +11,12 @@ spring:
   application:
     name: EA_Project
 
+  web:
+    resources:
+        static-locations: classpath:/static/, classpath:/public/, file:./src/main/resources/static/
+    mvc:
+      static-path-pattern: /static/*
+
   datasource:
     url: jdbc:mysql://localhost:3306/fanfare_borcht?createDatabaseIfNotExist=true
     username: root
@@ -25,11 +31,6 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
     show-sql: true  # Show SQL queries in logs
-
-  logging:
-    level:
-      root: DEBUG
-      org.springframework.security: DEBUG
 
   servlet:
     multipart:
