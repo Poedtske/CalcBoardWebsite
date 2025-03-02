@@ -29,5 +29,22 @@
     </div>
 </div>
 
+<h1>Available Maps</h1>
+<div class="maps-container">
+    <ul>
+        <!-- Thymeleaf loop to render maps -->
+        <li th:each="map : ${maps}">
+            <div class="map-details">
+                <h3 th:text="${map.mapName}"></h3>
+                <p th:text="'Game: ' + ${map.game}"></p>
+                <span th:class="${map.freeOrNot ? 'public-badge public' : 'public-badge private'}"
+                      th:text="${map.freeOrNot ? 'Public' : 'Private'}"></span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+
 </body>
 </html>

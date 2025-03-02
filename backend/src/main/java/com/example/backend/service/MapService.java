@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.backend.model.User;
 import com.example.backend.model.CalcBoardMap;
 
+import java.util.List;
+
 @Service
 public class MapService {
 
@@ -17,6 +19,7 @@ public class MapService {
 
     @Autowired
     private CalcBoardMapRepository mapRepository;
+
 
     public void saveMap(MapSaveRequest request) {
         User user = userRepository.findById(request.getUserId())
@@ -30,5 +33,9 @@ public class MapService {
         map.setUser(user);  // Link the user!
 
         mapRepository.save(map);
+    }
+
+    public List<CalcBoardMap> getAllMaps() {
+        return mapRepository.findAll();
     }
 }
