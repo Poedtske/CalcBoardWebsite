@@ -29,9 +29,9 @@ WebConfig {
 
                 // Optional: Explicitly configure for css and js files (if needed)
                 registry.addResourceHandler("/css/**")
-                        .addResourceLocations("classpath:/static");
+                        .addResourceLocations("classpath:/static/");
                 registry.addResourceHandler("/js/**")
-                        .addResourceLocations("classpath:/static");
+                        .addResourceLocations("classpath:/static/");
             }
         };
 

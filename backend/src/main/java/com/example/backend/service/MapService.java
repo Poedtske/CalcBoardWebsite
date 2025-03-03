@@ -38,4 +38,22 @@ public class MapService {
     public List<CalcBoardMap> getAllMaps() {
         return mapRepository.findAll();
     }
+
+    public List<CalcBoardMap> getUserMaps(String username) {
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return mapRepository.findByUser(user);
+    }
+
+    public void toggleMapPrivacy(Integer mapId, String username) {
+        CalcBoardMap map = mapRepository.findById(mapId)
+                .orElseThrow(() -> new RuntimeException("Map not found"));
+
+        if (!map.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("Unauthorized to edit this map");
+        }
+
+        map.setFreeOrNot(!map.getFreeOrNot()); // Toggle privacy
+        mapRepository.save(map);
+    }
 }

@@ -60,9 +60,9 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT authentication filter.
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/","/api/public/**", "/public/**", "/images/**",
-                                "/register", "/css/**", "/js/**", "/login","/style.css", "script.js","/static/**").permitAll() // Public access endpoints.
-                        .requestMatchers("/admin/**", "/api/admin/**").hasAuthority(Role.ADMIN.getValue()) // Admin role access for certain paths..requestMatchers("").authenticated()
-                        .requestMatchers("/maps/save").authenticated()// Require authentication for these paths.
+                                "/register","/login","/static/**","/style.css", "script.js" ).permitAll() // Public access endpoints.
+                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/maps/save","/maps").authenticated()// Require authentication for these paths.
                 )
                 .httpBasic(httpBasic -> httpBasic.disable()) // Disable basic HTTP authentication.
                 .logout(logout -> logout.permitAll()); // Allow all users to log out.

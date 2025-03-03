@@ -1,6 +1,8 @@
 package com.example.backend.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.List;
@@ -56,4 +58,15 @@ public class MapController {
 
         return ResponseEntity.ok("Map saved successfully");
     }
+
+   /* @GetMapping("/maps")
+    public String usersMap(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        List<CalcBoardMap> userMaps = mapService.getUserMaps(username);
+        model.addAttribute("maps", userMaps);
+
+        return "UsersMap"; // UsersMap.html will display the maps
+    }*/
 }

@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.dto.*;
 import com.example.backend.service.AuthService;
+import com.example.backend.service.MapService;
 import com.example.backend.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ public class UserController {
 
     private final UserServiceImpl userServiceImpl;
     private final AuthService service;
+    private final MapService mapService;
+
 
     /**
      * Endpoint for retrieving the profile of the currently authenticated user.
@@ -48,6 +51,16 @@ public class UserController {
     private String getUsername(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
+    }
+
+
+    @PutMapping("/{mapId}/toggle-privacy")
+    public ResponseEntity<String> togglePrivacy(@PathVariable Integer mapId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        mapService.toggleMapPrivacy(mapId, username);
+        return ResponseEntity.ok("Privacy updated successfully");
     }
 
 }
