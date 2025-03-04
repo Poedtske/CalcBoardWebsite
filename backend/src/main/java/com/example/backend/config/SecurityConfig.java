@@ -61,7 +61,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/","/api/public/**", "/public/**", "/images/**",
                                 "/register","/login","/static/**","/style.css", "script.js" ).permitAll() // Public access endpoints.
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/api/**",  "/api/secure/**").authenticated()
                         .requestMatchers("/maps/save","/maps").authenticated()// Require authentication for these paths.
                 )
                 .httpBasic(httpBasic -> httpBasic.disable()) // Disable basic HTTP authentication.

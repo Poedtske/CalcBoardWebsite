@@ -127,3 +127,47 @@ button {
     background-color: #dc3545;
     color: white;
 }
+
+/* User Maps Specific Styles */
+.user-maps-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-maps-container h1 {
+    text-align: center;
+    color: #333;
+}
+
+.user-maps-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-maps-container li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.user-maps-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-maps-container button:hover {
+    background-color: #0056b3;
+}

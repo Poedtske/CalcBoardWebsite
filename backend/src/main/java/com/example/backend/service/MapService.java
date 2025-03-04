@@ -49,7 +49,7 @@ public class MapService {
         CalcBoardMap map = mapRepository.findById(mapId)
                 .orElseThrow(() -> new RuntimeException("Map not found"));
 
-        if (!map.getUser().getUsername().equals(username)) {
+        if (!map.getUser().getEmail().equals(username)) {
             throw new RuntimeException("Unauthorized to edit this map");
         }
 

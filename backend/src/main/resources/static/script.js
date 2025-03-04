@@ -115,12 +115,13 @@ function navigateToMaps() {
 // Toggle map privacy
 async function togglePrivacy(mapId) {
     const token = localStorage.getItem('token');
+    console.log("Current token in localStorage:", token);
     if (!token) {
         alert("You must be logged in to change privacy settings.");
         return;
     }
 
-    const response = await fetch(`/api/secure/maps/${mapId}/toggle-privacy`, {
+    const response = await fetch(`/api/secure/${mapId}/toggle-privacy`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
