@@ -75,6 +75,7 @@ public class CalcBoardMap {
     public boolean getFreeOrNot() {
         return freeOrNot;
     }
+
     public void setFreeOrNot(boolean freeOrNot) {
         this.freeOrNot = freeOrNot;
     }

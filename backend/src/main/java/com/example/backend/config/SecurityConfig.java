@@ -59,10 +59,10 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider) // Use the provided authentication provider.
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT authentication filter.
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/public/**", "/public/**", "/images/**", "/favicon.ico", "/register", "/css/**", "/js/**", "/login", "/status").permitAll() // Public access endpoints.
-                        .requestMatchers("/admin/**", "/api/admin/**").hasAuthority(Role.ADMIN.getValue()) // Admin role access for certain paths.
-                        .requestMatchers("/profile", "/cart", "/api/secure/**").authenticated() // Require authentication for these paths.
-                        .requestMatchers("/maps/save").authenticated()
+                        .requestMatchers("/","/api/public/**", "/public/**", "/images/**",
+                                "/register","/login","/static/**","/style.css", "script.js" ).permitAll() // Public access endpoints.
+                        .requestMatchers("/api/**",  "/api/secure/**").authenticated()
+                        .requestMatchers("/maps/save","/maps").authenticated()// Require authentication for these paths.
                 )
                 .httpBasic(httpBasic -> httpBasic.disable()) // Disable basic HTTP authentication.
                 .logout(logout -> logout.permitAll()); // Allow all users to log out.
@@ -81,7 +81,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOrigins(List.of("http://localhost:3000")); // Allow requests from this origin.
+        corsConfig.setAllowedOrigins(List.of("http://localhost:8081", "http://localhost:8080")); // Allow requests from this origin.
         corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE")); // Allow these HTTP methods.
         corsConfig.setAllowCredentials(true); // Allow sending credentials (cookies).
         corsConfig.addAllowedHeader("*"); // Allow all headers.

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maps</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js"></script>
+</head>
+<body>
+<nav>
+    <ul>
+    <li><a href="/">Home</a></li>
+    <li id="userMapsLink" style="display: none;">
+        <a href="#" onclick="navigateToMaps()">Your Maps</a>
+    </li>
+    <li><a href="#" id="loginLogoutButton" onclick="openLoginPopup()">Login</a></li>
+    </ul>
+</nav>
+
+<div class="user-maps-container">
+    <h1>Your Maps</h1>
+    <ul>
+        <th:block th:each="map : ${maps}">
+            <li class="map-item">
+                <span class="map-game" th:text="${map.game}"></span> -
+                <span th:text="${map.mapName}"></span> -
+                <span class="privacy-badge" th:classappend="${map.getFreeOrNot() ? 'private' : 'public'}"
+                      th:text="${map.getFreeOrNot() ? 'Public' : 'Private'}"></span>
+                <button class="toggle-privacy-btn" th:onclick="'togglePrivacy(' + ${map.id} + ')'">
+                    Make <span th:text="${map.getFreeOrNot() ? 'Private' : 'Public'}"></span>
+                </button>
+            </li>
+        </th:block>
+    </ul>
+</div>
+
+<!-- Login Popup -->
+<div id="loginPopup" class="popup" style="display:none;">
+    <div class="popup-content">
+        <span class="close" onclick="closeLoginPopup()">&times;</span>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+            <p id="message"></p>
+            <button type="button" onclick="closeLoginPopup()">Close</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

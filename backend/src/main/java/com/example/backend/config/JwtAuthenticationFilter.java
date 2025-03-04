@@ -69,8 +69,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
 
+
+
+
         // Validate the header and check for "Bearer " prefix
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("No valid Authorization header found.");
             filterChain.doFilter(request, response);
             return;
         }
@@ -80,6 +84,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // Extract the email (username) from the JWT token
         userEmail = jwtService.extractUsername(jwt);
+
+        System.out.println("🔍 Incoming request: " + request.getRequestURI());
+        System.out.println("🔍 Authorization Header: " + authHeader);
 
         // Check if email exists and no authentication token is already set
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -101,6 +108,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 // Update the Security Context
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+                System.out.println(" Authentication successful for user: " + userEmail);
             }
         }
 
