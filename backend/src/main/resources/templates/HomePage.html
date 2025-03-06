@@ -41,7 +41,8 @@
                 <h3 th:text="${map.mapName}"></h3>
                 <p th:text="'Game: ' + ${map.game}"></p>
                 <span th:class="${map.freeOrNot ? 'public-badge public' : 'public-badge private'}"
-                      th:text="${map.freeOrNot ? 'Public' : 'Private'}"></span>
+                      th:text="${map.freeOrNot ? 'Public' : 'Private'}">
+                </span>
             </div>
         </li>
     </ul>
