@@ -82,7 +82,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowedOrigins(List.of("http://localhost:8081", "http://localhost:8080")); // Allow requests from this origin.
-        corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE")); // Allow these HTTP methods.
+        corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allow these HTTP methods.
         corsConfig.setAllowCredentials(true); // Allow sending credentials (cookies).
         corsConfig.addAllowedHeader("*"); // Allow all headers.
         corsConfig.setMaxAge(3600L); // Cache preflight requests for 1 hour.

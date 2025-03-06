@@ -27,12 +27,16 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/product # Use the container name as the host
       SPRING_DATASOURCE_USERNAME: product_user
       SPRING_DATASOURCE_PASSWORD: product_user_password
+      MAP_STORAGE_PATH: /app/maps  # Add this env variable
+    volumes:
+          - map_images:/app/maps  # Mount the volume inside the container
     restart: unless-stopped # Automatically restart on failures
     networks:
       - shared-network # Unified network for all services
 
 volumes:
   mysql_data: # Named volume for persisting MySQL data
+  map_images:  # Named volume for storing maps
 
 networks:
   shared-network:
