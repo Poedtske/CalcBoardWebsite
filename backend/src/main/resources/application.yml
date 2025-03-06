@@ -39,6 +39,8 @@ spring:
       max-request-size: 10MB  # Maximum request size (adjust as needed)
       file-size-threshold: 2KB # File size threshold for temporary storage
 
-
+  map:
+    storage:
+       path: /app/maps
 
 spring.mvc.hiddenmethod.filter.enabled: true
