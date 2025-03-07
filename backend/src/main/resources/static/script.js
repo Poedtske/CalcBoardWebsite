@@ -205,7 +205,36 @@ async function togglePrivacy(mapId) {
     });
 
     if (response.ok) {
-        location.reload();
+
+        if (!token) {
+            alert("You need to log in first!");
+            window.location.href = "/"; // Redirect to home
+            return;
+        }
+
+        fetch("/maps", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text(); // Get HTML response
+                } else {
+                    throw new Error("Unauthorized");
+                }
+            })
+            .then(html => {
+                document.body.innerHTML = html; // Replace body content with fetched page
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Access Denied. Please log in again.");
+                localStorage.removeItem("token");
+                window.location.href = "/"; // Redirect to login
+            });
     } else {
         alert("Failed to update privacy");
     }
