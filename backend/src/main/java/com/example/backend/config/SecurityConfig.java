@@ -59,8 +59,8 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider) // Use the provided authentication provider.
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT authentication filter.
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/api/public/**", "/public/**", "/images/**",
-                                "/register","/login","/static/**","/style.css", "script.js" ).permitAll() // Public access endpoints.
+                        .requestMatchers("/", "/avmaps" ,"/api/public/**", "/public/**",
+                                "/register","/login","/static/**" , "/images/**", "/**.jpg" ,"/style.css", "/styles-Home.css" ,"script.js" ).permitAll() // Public access endpoints.
                         .requestMatchers("/api/**",  "/api/secure/**").authenticated()
                         .requestMatchers("/maps/save","/maps").authenticated()// Require authentication for these paths.
                 )

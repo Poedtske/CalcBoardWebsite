@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calc Board</title>
     <link type="text/css" rel="stylesheet" href="/style.css">
     <script src="/script.js"></script>
@@ -9,8 +10,10 @@
 <body>
 
 <nav>
-    <ul>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul id="nav-menu">
         <li><a href="/">Home</a></li>
+        <li><a href="/avmaps">Maps</a></li>
         <li id="userMapsLink" style="display: none;">
             <a href="#" onclick="navigateToMaps()">Your Maps</a>
         </li>
@@ -24,7 +27,7 @@
         <span class="close" onclick="closeLoginPopup()">&times;</span>
         <h2>Login</h2>
         <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
+            <input type="text" id="username" placeholder="Email" required>
             <input type="password" id="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
@@ -32,10 +35,11 @@
     </div>
 </div>
 
-<h1>Available Maps</h1>
 <div class="maps-container">
     <ul>
         <!-- Thymeleaf loop to render maps -->
+        <h1>Available Maps</h1>
+
         <li th:each="map : ${maps}">
             <div class="map-details">
                 <h3 th:text="${map.mapName}"></h3>

@@ -24,22 +24,36 @@ public class CalcBoardMap {
     @Column(nullable = true)
     private String img;
 
+
+    @Column(nullable = true, length = 500)
+    private String description;
+
     @Column(nullable = false)
     private boolean freeOrNot;
 
     // Constructors
-    public CalcBoardMap() {
-    }
+    public CalcBoardMap() {}
 
-    public CalcBoardMap(int id, String game, String mapName, String img, boolean freeOrNot) {
+    public CalcBoardMap(int id, String game, String mapName, String img, boolean freeOrNot, String description) {
         this.id = id;
         this.game = game;
         this.mapName = mapName;
         this.img = img;
         this.freeOrNot = freeOrNot;
+        this.description = description;
     }
 
+
+
     // Getters and Setters
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

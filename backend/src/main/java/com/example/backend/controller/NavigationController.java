@@ -26,12 +26,21 @@ public class NavigationController {
         this.mapService = mapService;
     }
 
-    // Home page - accessible to everyone
     @GetMapping("/")
-    public String homePage(Model model) {
-        List<CalcBoardMap> maps = mapService.getAllMaps();
+    public String homePage() {
+
+        return "Home";
+    }
+
+    // Home page - accessible to everyone
+    @GetMapping("/avmaps")
+    public String MapsPage(Model model) {
+        List<CalcBoardMap> allMaps = mapService.getAllMaps();
+        List<CalcBoardMap> maps = allMaps.stream()
+                .filter(CalcBoardMap::getFreeOrNot) // Alleen waar freeOrNot true is
+                .toList();
         model.addAttribute("maps", maps);
-        return "HomePage";
+        return "Maps";
     }
 
     @GetMapping("/maps")

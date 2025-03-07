@@ -2,18 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maps</title>
-    <link rel="stylesheet" href="/style.css">
+    <link type="text/css" rel="stylesheet" href="/style.css">
     <script src="/script.js"></script>
 </head>
 <body>
 <nav>
-    <ul>
-    <li><a href="/">Home</a></li>
-    <li id="userMapsLink" style="display: none;">
-        <a href="#" onclick="navigateToMaps()">Your Maps</a>
-    </li>
-    <li><a href="#" id="loginLogoutButton" onclick="openLoginPopup()">Login</a></li>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul id="nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/avmaps">Maps</a></li>
+        <li id="userMapsLink" style="display: none;">
+            <a href="#" onclick="navigateToMaps()">Your Maps</a>
+        </li>
+        <li><a href="#" id="loginLogoutButton" onclick="logout()">Logout</a></li>
     </ul>
 </nav>
 
@@ -26,6 +29,19 @@
                 <span th:text="${map.mapName}"></span> -
                 <span class="privacy-badge" th:classappend="${map.getFreeOrNot() ? 'private' : 'public'}"
                       th:text="${map.getFreeOrNot() ? 'Public' : 'Private'}"></span>
+
+                <!-- Description area -->
+                <div class="description-container">
+                    <textarea id="descriptionTextarea-${map.id}" th:text="${map.description}" style="display: none;"></textarea>
+                    <span id="descriptionText-${map.id}" th:text="${map.description}" style="display: block;"></span>
+                </div>
+
+                <!-- Button to toggle editing the description -->
+                <button class="toggle-description-btn" th:onclick="|toggleDescription(${map.id})|">
+                    Edit Description
+                </button>
+
+                <!-- Button to toggle privacy -->
                 <button class="toggle-privacy-btn" th:onclick="'togglePrivacy(' + ${map.id} + ')'">
                     Make <span th:text="${map.getFreeOrNot() ? 'Private' : 'Public'}"></span>
                 </button>
@@ -34,18 +50,5 @@
     </ul>
 </div>
 
-<!-- Login Popup -->
-<div id="loginPopup" class="popup" style="display:none;">
-    <div class="popup-content">
-        <span class="close" onclick="closeLoginPopup()">&times;</span>
-        <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-            <p id="message"></p>
-            <button type="button" onclick="closeLoginPopup()">Close</button>
-        </form>
-    </div>
-</div>
 </body>
 </html>
