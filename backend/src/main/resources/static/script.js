@@ -74,6 +74,81 @@ function logout() {
     localStorage.removeItem('token');
     console.log("User logged out. Token removed.");
     updateLoginLogoutButton();
+    window.location.href = "/";
+}
+
+function toggleMenu() {
+    document.getElementById("nav-menu").classList.toggle("show");
+}
+
+function toggleDescription(mapId) {
+    let descriptionText = document.getElementById(`descriptionText-${mapId}`);
+    let descriptionTextarea = document.getElementById(`descriptionTextarea-${mapId}`);
+
+    console.log(`Current state - descriptionText:`, descriptionText, `descriptionTextarea:`, descriptionTextarea);
+
+    // If the elements don't exist, create them dynamically
+    if (!descriptionText || !descriptionTextarea) {
+        console.warn(`Elements not found for mapId: ${mapId}, creating new ones.`);
+
+        const container = document.getElementById(`mapContainer-${mapId}`); // Adjust if necessary
+        if (!container) {
+            console.error(`Container for mapId ${mapId} not found.`);
+            return;
+        }
+
+        // Create description text (default visible)
+        descriptionText = document.createElement("p");
+        descriptionText.id = `descriptionText-${mapId}`;
+        descriptionText.textContent = "Click to add a description...";
+        descriptionText.style.display = "block";
+
+        // Create textarea (default hidden)
+        descriptionTextarea = document.createElement("textarea");
+        descriptionTextarea.id = `descriptionTextarea-${mapId}`;
+        descriptionTextarea.style.display = "none";
+        descriptionTextarea.placeholder = "Enter a description...";
+
+        // Append elements to the container
+        container.appendChild(descriptionText);
+        container.appendChild(descriptionTextarea);
+    }
+
+    // Toggle visibility
+    if (descriptionText.style.display === "none") {
+        descriptionText.style.display = "block";
+        descriptionTextarea.style.display = "none";
+    } else {
+        descriptionText.style.display = "none";
+        descriptionTextarea.style.display = "block";
+    }
+}
+
+// Function to update the description
+function updateDescription(mapId, newDescription) {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        alert("You must be logged in to update the description.");
+        return;
+    }
+
+    fetch(`/api/secure/${mapId}/update-description`, {
+        method: 'PUT',
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ description: newDescription })
+    })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // You can also handle success message or UI changes here
+            console.log("Description updated:", data);
+        })
+        .catch(error => {
+            console.error('Error updating description:', error);
+        });
 }
 
 function navigateToMaps() {
@@ -130,7 +205,36 @@ async function togglePrivacy(mapId) {
     });
 
     if (response.ok) {
-        location.reload();
+
+        if (!token) {
+            alert("You need to log in first!");
+            window.location.href = "/"; // Redirect to home
+            return;
+        }
+
+        fetch("/maps", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text(); // Get HTML response
+                } else {
+                    throw new Error("Unauthorized");
+                }
+            })
+            .then(html => {
+                document.body.innerHTML = html; // Replace body content with fetched page
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Access Denied. Please log in again.");
+                localStorage.removeItem("token");
+                window.location.href = "/"; // Redirect to login
+            });
     } else {
         alert("Failed to update privacy");
     }
@@ -140,6 +244,7 @@ async function togglePrivacy(mapId) {
 // Call this function when the page loads to set the button state
 window.onload = function() {
     console.log("Page loaded. Checking login state...");
+    console.log("Script.js is geladen!");
     updateLoginLogoutButton(); // Update the button based on the current login state
 
     // Attach the login form submit event

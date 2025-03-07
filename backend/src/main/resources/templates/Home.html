@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gezelschapsspellen van de Toekomst</title>
+  <link rel="stylesheet" href="styles-Home.css">
+  <link type="text/css" rel="stylesheet" href="/style.css">
+  <script src="/script.js"></script>
+</head>
+<body>
+
+<nav>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <ul id="nav-menu">
+    <li><a href="/">Home</a></li>
+    <li><a href="/avmaps">Maps</a></li>
+    <li id="userMapsLink" style="display: none;">
+      <a href="#" onclick="navigateToMaps()">Your Maps</a>
+    </li>
+    <li><a href="#" id="loginLogoutButton" onclick="openLoginPopup()">Login</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <h1>Calc Board Final Work</h1>
+  <p>De toekomst van gezelschapsspellen is hier. Combineer de charme van traditionele bordspellen met de complexiteit van computergames.</p>
+</header>
+
+<section class="intro">
+  <h2>Over ons project</h2>
+  <p>Traditionele gezelschapsspellen hebben hun charme, maar ze missen vaak de complexiteit en diepgang van moderne computergames. Ons doel is om deze twee werelden te combineren in een gezelschapsspel met geavanceerde technologie, zoals RFID, om de ervaring interactief en dynamisch te maken. We beginnen met twee kleinere spellen: Elektro en Musical Elektro, om uiteindelijk te werken naar een complexer strategisch spel.</p>
+  <p>De spelervaring biedt de mogelijkheid om je eigen speelbord te creëren en te personaliseren. Zo kun je je eigen strategische game-ervaring ontwerpen en aanpassen naar je eigen wensen!</p>
+</section>
+
+<section class="board">
+  <h2>Het Speelbord</h2>
+  <p>Ons speelbord is gemaakt met een stevige, maar lichte constructie en bevat RFID-technologie. Het bord is verdeeld in 24 gelijke delen, met zorgvuldig gefreesde openingen voor een soepele speelervaring.</p>
+
+  <div class="board-gallery">
+    <img src="/images/boardFoto1.jpg" alt="Speelbord Foto 1">
+    <img src="/images/boardFoto2.jpg" alt="Speelbord Foto 2">
+    <img src="/images/boardFoto3.jpg" alt="Speelbord Foto 3">
+  </div>
+</section>
+
+<!-- Login Popup (Initially Hidden) -->
+<div id="loginPopup" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closeLoginPopup()">&times;</span>
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p id="message"></p>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Ons Project | Alle rechten voorbehouden</p>
+</footer>
+
+</body>
+</html>

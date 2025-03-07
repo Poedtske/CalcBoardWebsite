@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,6 +52,16 @@ public class UserController {
     private String getUsername(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
+    }
+
+    @PutMapping("/{mapId}/update-description")
+    public ResponseEntity<String> updateDescription(@PathVariable Integer mapId, @RequestBody Map<String, String> request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        String newDescription = request.get("description");
+        mapService.updateMapDescription(mapId, username, newDescription);
+        return ResponseEntity.ok("Description updated successfully");
     }
 
 

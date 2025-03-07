@@ -93,15 +93,4 @@ public class MapController {
         }
      }
 
-
-   /* @GetMapping("/maps")
-    public String usersMap(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-
-        List<CalcBoardMap> userMaps = mapService.getUserMaps(username);
-        model.addAttribute("maps", userMaps);
-
-        return "UsersMap"; // UsersMap.html will display the maps
-    }*/
 }

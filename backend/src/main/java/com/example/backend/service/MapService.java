@@ -66,6 +66,18 @@ public class MapService {
         mapRepository.save(map);
     }
 
+    public void updateMapDescription(Integer mapId, String username, String newDescription) {
+        CalcBoardMap map = mapRepository.findById(mapId)
+                .orElseThrow(() -> new RuntimeException("Map not found"));
+
+        if (!map.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("Unauthorized to update this map");
+        }
+
+        map.setDescription(newDescription);
+        mapRepository.save(map);
+    }
+
     // Helper method to save the image to the volume (Docker-mounted directory)
     private String saveMapImage(MultipartFile file, String fileName) throws IOException {
         // Ensure the storage directory exists within the mounted volume path
