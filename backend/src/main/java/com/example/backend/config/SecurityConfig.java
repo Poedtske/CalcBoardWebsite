@@ -60,7 +60,9 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT authentication filter.
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/avmaps" ,"/api/public/**", "/public/**",
-                                "/register","/login","/static/**" , "/images/**", "/**.jpg" ,"/style.css", "/styles-Home.css" ,"script.js" ).permitAll() // Public access endpoints.
+                                "/register","/login","/validate-token",
+                                "/static/**" , "/images/**", "/**.jpg" ,
+                                "/style.css", "/styles-Home.css" ,"script.js" ).permitAll() // Public access endpoints.
                         .requestMatchers("/api/**",  "/api/secure/**").authenticated()
                         .requestMatchers("/maps/save","/maps").authenticated()// Require authentication for these paths.
                 )

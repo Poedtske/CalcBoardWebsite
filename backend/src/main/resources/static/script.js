@@ -57,6 +57,9 @@ function updateLoginLogoutButton() {
 
         if (userMapsLink) userMapsLink.style.display = "inline";
         console.log("User is logged in. Token:", token);
+
+        // Hide the login popup if user is logged in
+        closeLoginPopup();
     } else {
         // User is not logged in, show "Login"
         loginLogoutButton.innerText = 'Login';
@@ -81,53 +84,59 @@ function toggleMenu() {
     document.getElementById("nav-menu").classList.toggle("show");
 }
 
-function toggleDescription(mapId) {
-    let descriptionText = document.getElementById(`descriptionText-${mapId}`);
-    let descriptionTextarea = document.getElementById(`descriptionTextarea-${mapId}`);
-
-    console.log(`Current state - descriptionText:`, descriptionText, `descriptionTextarea:`, descriptionTextarea);
-
-    // If the elements don't exist, create them dynamically
-    if (!descriptionText || !descriptionTextarea) {
-        console.warn(`Elements not found for mapId: ${mapId}, creating new ones.`);
-
-        const container = document.getElementById(`mapContainer-${mapId}`); // Adjust if necessary
-        if (!container) {
-            console.error(`Container for mapId ${mapId} not found.`);
-            return;
-        }
-
-        // Create description text (default visible)
-        descriptionText = document.createElement("p");
-        descriptionText.id = `descriptionText-${mapId}`;
-        descriptionText.textContent = "Click to add a description...";
-        descriptionText.style.display = "block";
-
-        // Create textarea (default hidden)
-        descriptionTextarea = document.createElement("textarea");
-        descriptionTextarea.id = `descriptionTextarea-${mapId}`;
-        descriptionTextarea.style.display = "none";
-        descriptionTextarea.placeholder = "Enter a description...";
-
-        // Append elements to the container
-        container.appendChild(descriptionText);
-        container.appendChild(descriptionTextarea);
+function toggleDescription(buttonElement) {
+    let container = buttonElement.closest('.map-container');  // Get the nearest container
+    if (!container) {
+        console.error("Container not found!");
+        return;
     }
 
-    // Toggle visibility
+    let mapId = container.getAttribute('data-map-id');  // Get the map ID
+    console.log("Editing description for Map ID:", mapId);
+
+    let descriptionText = container.querySelector('.description-text');
+    let descriptionTextarea = container.querySelector('.description-textarea');
+    let saveButton = container.querySelector('.save-description-btn');
+
+    if (!descriptionText || !descriptionTextarea || !saveButton) {
+        console.warn("Description elements not found in container.");
+        return;
+    }
+
     if (descriptionText.style.display === "none") {
         descriptionText.style.display = "block";
         descriptionTextarea.style.display = "none";
+        saveButton.style.display = "none";
     } else {
         descriptionText.style.display = "none";
         descriptionTextarea.style.display = "block";
+        saveButton.style.display = "inline-block";
     }
 }
 
-// Function to update the description
-function updateDescription(mapId, newDescription) {
-    const token = localStorage.getItem('token');
 
+
+// Function to update the description
+function saveDescription(buttonElement) {
+    let container = buttonElement.closest('.map-container');
+    if (!container) {
+        console.error("Container not found!");
+        return;
+    }
+
+    let mapId = container.getAttribute('data-map-id');  // Get the map ID
+    let descriptionTextarea = container.querySelector('.description-textarea');
+    let descriptionText = container.querySelector('.description-text');
+    let newDescription = descriptionTextarea.value;
+
+    console.log("Saving description for Map ID:", mapId, "New description:", newDescription);
+
+    if (!mapId || !newDescription) {
+        console.warn("Invalid map ID or description.");
+        return;
+    }
+
+    const token = localStorage.getItem('token');
     if (!token) {
         alert("You must be logged in to update the description.");
         return;
@@ -141,15 +150,24 @@ function updateDescription(mapId, newDescription) {
         },
         body: JSON.stringify({ description: newDescription })
     })
-        .then(response => response.text())
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error("Failed to update description");
+            }
+        })
         .then(data => {
-            alert(data); // You can also handle success message or UI changes here
-            console.log("Description updated:", data);
+            alert("Description updated successfully!");
+            descriptionText.textContent = newDescription;
+            toggleDescription(buttonElement);
         })
         .catch(error => {
             console.error('Error updating description:', error);
+            alert("Failed to update description.");
         });
 }
+
 
 function navigateToMaps() {
     const token = localStorage.getItem('token');
@@ -241,10 +259,10 @@ async function togglePrivacy(mapId) {
 }
 
 
-// Call this function when the page loads to set the button state
+// Function to handle page load logic
 window.onload = function() {
     console.log("Page loaded. Checking login state...");
-    console.log("Script.js is geladen!");
+    console.log("Script.js is loaded!");
     updateLoginLogoutButton(); // Update the button based on the current login state
 
     // Attach the login form submit event

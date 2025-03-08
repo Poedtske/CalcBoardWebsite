@@ -1,10 +1,13 @@
 package com.example.backend.controller;
 
+import com.example.backend.config.JwtService;
 import com.example.backend.dto.CredentialsDto;
 import com.example.backend.dto.SignUpDto;
 import com.example.backend.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,6 +22,42 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService service;
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
+
+
+
+
+    /**
+     * Endpoint to validate if a token is still valid.
+     *
+     * @param request The HTTP request containing the Authorization header.
+     * @return ResponseEntity with validation status.
+     */
+    @GetMapping("/validate-token")
+    public ResponseEntity<?> validateToken(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().body("Invalid or missing token");
+        }
+
+        String token = authHeader.substring(7); // Remove "Bearer " prefix
+        String username = jwtService.extractUsername(token);
+
+        if (username == null) {
+            return ResponseEntity.status(401).body("Invalid token");
+        }
+
+        var userDetails = userDetailsService.loadUserByUsername(username);
+
+        if (!jwtService.isTokenValid(token, userDetails)) {
+            return ResponseEntity.status(401).body("Token expired or invalid");
+        }
+
+        return ResponseEntity.ok("Token is valid");
+    }
+
 
     /**
      * Endpoint for authenticating a user based on their provided credentials.
