@@ -11,16 +11,10 @@ spring:
   application:
     name: EA_Project
 
-  web:
-    resources:
-        static-locations: classpath:/static/, classpath:/public/, file:./src/main/resources/static/
-    mvc:
-      static-path-pattern: /static/*
-
   datasource:
-    url: jdbc:mysql://localhost:3306/fanfare_borcht?createDatabaseIfNotExist=true
-    username: root
-    password:
+    url: jdbc:mysql://mysql_db:3306/product?createDatabaseIfNotExist=true
+    username: product_user
+    password: product_user_password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -34,13 +28,19 @@ spring:
 
   servlet:
     multipart:
-      enabled: true           # Enable file uploads
-      max-file-size: 5MB      # Maximum file size (adjust as needed)
-      max-request-size: 10MB  # Maximum request size (adjust as needed)
-      file-size-threshold: 2KB # File size threshold for temporary storage
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 10MB
+      file-size-threshold: 2KB
+
+  web:
+    resources:
+      static-locations: classpath:/static/, classpath:/public/, file:/app/maps/
+    mvc:
+      static-path-pattern: /maps/**
 
   map:
     storage:
-       path: /app/maps
+      path: /app/maps
 
 spring.mvc.hiddenmethod.filter.enabled: true

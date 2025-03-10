@@ -46,8 +46,11 @@ public class MapController {
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> saveMap(
             @RequestPart(value = "mapData") MapSaveRequest mapSaveRequest,  // JSON data sent as part of the multipart request
-            @RequestPart(value = "file", required = false) MultipartFile file,  // Image file sent as part of the multipart request
+            @RequestPart(value = "tileImages", required = false) MultipartFile[] tileImages, // Tile images (as an array)
             @RequestHeader(value = "Authorization", required = false) String authHeader) {
+        if (tileImages == null) {
+            return ResponseEntity.badRequest().body("Error: No images received!");
+        }
 
         // Check if Authorization header exists
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -64,33 +67,20 @@ public class MapController {
 
         try {
             // Set user ID in the map save request
-            mapSaveRequest.setUserId(user.getId());
+            mapSaveRequest.setId(user.getId());
 
-            // Get the storage path for the image (from environment variable)
-            String storagePath = System.getenv("MAP_STORAGE_PATH");
-            if (storagePath == null || storagePath.isEmpty()) {
-                storagePath = "/app/maps";  // Default to the volume path
-            }
+            System.out.println(tileImages.length);
+            System.out.println("Received MapSaveRequest: " + mapSaveRequest);
+            System.out.println("Received map data: " + mapSaveRequest.toString());
 
-            // Process and save the image if it's provided
-            if (file != null && !file.isEmpty()) {
-                String fileName = "map_" + System.currentTimeMillis() + ".png";
-                Path filePath = Paths.get(storagePath, fileName);
-                Files.createDirectories(filePath.getParent());
-                Files.write(filePath, file.getBytes());
+            // Call the service to save the map and pass tile images
+            mapService.saveMap(mapSaveRequest, tileImages);
 
-                // Store the image filename in the map save request
-                mapSaveRequest.getMap().setImg(fileName);
-            }
-
-            // Call the service to save the map (including the JSON data and image filename)
-            mapService.saveMap(mapSaveRequest, file);  // Pass both the mapSaveRequest and the file to the service
-
-            return ResponseEntity.ok("Map and image saved successfully");
+            return ResponseEntity.ok("Map and tile images saved successfully");
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing request: " + e.getMessage());
         }
-     }
+    }
 
 }

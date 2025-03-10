@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql_db # Consistent container name
+    container_name: mysql_db
     ports:
       - "3307:3306"
     environment:
@@ -10,34 +10,34 @@ services:
       MYSQL_PASSWORD: product_user_password
       MYSQL_DATABASE: product
     volumes:
-      - mysql_data:/var/lib/mysql # Persist database data
+      - mysql_data:/var/lib/mysql
     networks:
-      - shared-network # Unified network for all services
+      - shared-network
 
   spring-boot-app:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: spring_boot_app # Consistent container name
+    container_name: spring_boot_app
     ports:
       - "8081:8080"
     depends_on:
-      - mysql # Ensures mysql starts before this service
+      - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/product # Use the container name as the host
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/product
       SPRING_DATASOURCE_USERNAME: product_user
       SPRING_DATASOURCE_PASSWORD: product_user_password
-      MAP_STORAGE_PATH: /app/maps  # Add this env variable
+      MAP_STORAGE_PATH: /app/maps
     volumes:
-          - map_images:/app/maps  # Mount the volume inside the container
-    restart: unless-stopped # Automatically restart on failures
+      - map_images:/app/maps  # Ensure correct mounting
+    restart: unless-stopped
     networks:
-      - shared-network # Unified network for all services
+      - shared-network
 
 volumes:
-  mysql_data: # Named volume for persisting MySQL data
-  map_images:  # Named volume for storing maps
+  mysql_data:
+  map_images:
 
 networks:
   shared-network:
-    driver: bridge # Single network for backend and frontend services
+    driver: bridge

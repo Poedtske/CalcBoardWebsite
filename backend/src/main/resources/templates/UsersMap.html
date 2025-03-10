@@ -9,8 +9,8 @@
 </head>
 <body>
 
-<nav>
-    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+<nav class="navbar">
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">&#9776;</button>
     <ul id="nav-menu">
         <li><a href="/" aria-label="Home">Home</a></li>
         <li><a href="/avmaps" aria-label="Maps">Maps</a></li>
@@ -24,18 +24,25 @@
 <main class="user-maps-container">
     <h1>Your Maps</h1>
     <section>
-        <ul>
-            <!-- Loop through maps dynamically -->
+        <ul class="maps-list">
             <th:block th:each="map : ${maps}">
                 <li class="map-item">
                     <article class="map-details">
                         <span class="map-game" th:text="${map.game}"></span> -
                         <span th:text="${map.mapName}"></span> -
-                        <span class="privacy-badge" th:classappend="${map.getFreeOrNot() ? 'private' : 'public'}"
-                              th:text="${map.getFreeOrNot() ? 'Public' : 'Private'}"></span>
+                        <span class="privacy-badge"
+                              th:classappend="${map.getFreeOrNot() ? 'private' : 'public'}"
+                              th:text="${map.getFreeOrNot() ? 'Public' : 'Private'}">
+                        </span>
+
                     </article>
 
-                    <!-- Description area with data-map-id -->
+                    <span>
+                             <button class="toggle-privacy-btn" th:onclick="'togglePrivacy(' + ${map.id} + ')'" aria-label="Toggle Privacy">
+                                 Make <span th:text="${map.getFreeOrNot() ? 'Private' : 'Public'}"></span>
+                             </button>
+                        </span>
+
                     <div class="map-container" th:data-map-id="${map.id}">
                         <span class="description-text" th:text="${map.description}"></span>
                         <textarea class="description-textarea" th:text="${map.description}" style="display: none;"></textarea>
@@ -47,11 +54,6 @@
                             Save
                         </button>
                     </div>
-
-                    <!-- Button to toggle privacy -->
-                    <button class="toggle-privacy-btn" th:onclick="'togglePrivacy(' + ${map.id} + ')'" aria-label="Toggle Privacy">
-                        Make <span th:text="${map.getFreeOrNot() ? 'Private' : 'Public'}"></span>
-                    </button>
                 </li>
             </th:block>
         </ul>
