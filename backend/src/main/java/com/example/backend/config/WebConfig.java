@@ -23,6 +23,10 @@ WebConfig {
 
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                // Serve images from /app/maps/
+                registry.addResourceHandler("/maps/**")
+                        .addResourceLocations("file:/app/maps/");
+
                 // This will allow Spring Boot to serve static files from the /static/ folder
                 registry.addResourceHandler("/images/**")
                         .addResourceLocations("classpath:/images/");
