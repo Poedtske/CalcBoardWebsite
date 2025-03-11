@@ -61,7 +61,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/avmaps" ,"/api/public/**", "/public/**",
                                 "/register","/login","/validate-token",
-                                "/static/**" , "/images/**", "/**.jpg" ,"style-maps",
+                                "/static/**" , "/images/**", "/**.jpg" ,"/style-maps.css",
                                 "/style.css", "/styles-Home.css" ,"script.js","/maps/**" ).permitAll() // Public access endpoints.
                         .requestMatchers("/api/**",  "/api/secure/**").authenticated()
                         .requestMatchers("/maps/save","/maps", "/maps/download/**").authenticated()// Require authentication for these paths.

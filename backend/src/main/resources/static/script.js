@@ -1,5 +1,6 @@
 // Open the login popup
 function openLoginPopup() {
+    console.log("login login")
     document.getElementById("loginPopup").style.display = "flex";
 }
 
