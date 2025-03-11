@@ -22,9 +22,6 @@ public class CalcBoardMap {
     @Column(name = "map_name", nullable = true)
     private String mapName;
 
-    @Column(nullable = true)
-    private String img;
-
     @Column(nullable = true, length = 500)
     private String description;
 
@@ -49,11 +46,10 @@ public class CalcBoardMap {
     // Constructors
     public CalcBoardMap() {}
 
-    public CalcBoardMap(int id, String game, String mapName, String img, boolean freeOrNot, String description, List<String> categories, List<Tile> tiles) {
+    public CalcBoardMap(int id, String game, String mapName, boolean freeOrNot, String description, List<String> categories, List<Tile> tiles) {
         this.id = id;
         this.game = game;
         this.mapName = mapName;
-        this.img = img;
         this.freeOrNot = freeOrNot;
         this.description = description;
         this.categories = categories;
@@ -85,13 +81,6 @@ public class CalcBoardMap {
         this.mapName = mapName;
     }
 
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
 
     public boolean getFreeOrNot() {
         return freeOrNot;
@@ -143,7 +132,6 @@ public class CalcBoardMap {
                 "id=" + id +
                 ", game='" + game + '\'' +
                 ", mapName='" + mapName + '\'' +
-                ", img='" + img + '\'' +
                 ", categories=" + categories +
                 ", tiles=" + tiles +
                 '}';

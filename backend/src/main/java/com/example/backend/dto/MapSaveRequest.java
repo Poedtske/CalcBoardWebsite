@@ -2,7 +2,6 @@ package com.example.backend.dto;
 
 import com.example.backend.model.Tile;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.example.backend.model.CalcBoardMap;
 
 import java.util.List;
 
@@ -23,15 +22,6 @@ public class MapSaveRequest {
 
     @JsonProperty("Tiles")
     private List<Tile> tiles;
-    private CalcBoardMap map;
-
-    public CalcBoardMap getMap() {
-        return map;
-    }
-
-    public void setMap(CalcBoardMap map) {
-        this.map = map;
-    }
 
     public String getGame() {
         return game;

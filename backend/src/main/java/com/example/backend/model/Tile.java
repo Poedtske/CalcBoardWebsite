@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.google.gson.annotations.Expose;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -21,11 +22,13 @@ public class Tile {
     @ElementCollection
     @CollectionTable(name = "tile_words", joinColumns = @JoinColumn(name = "tile_id"))
     @Column(name = "word")
+    @Expose
     private List<String> words;
 
     // Many-to-One: A tile belongs to one map
     @ManyToOne
     @JoinColumn(name = "map_id", nullable = false)
+    @Expose(serialize = false)
     private CalcBoardMap map;
 
     public Tile() {}

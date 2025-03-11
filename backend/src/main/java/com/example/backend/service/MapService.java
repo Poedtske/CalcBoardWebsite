@@ -1,5 +1,7 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.MapSaveRequestDto;
+import com.example.backend.dto.TileDto;
 import com.example.backend.model.Tile;
 import com.example.backend.repository.TilesRepository;
 import com.example.backend.repository.UserRepository;
@@ -7,6 +9,8 @@ import com.example.backend.repository.CalcBoardMapRepository;
 import com.example.backend.dto.MapSaveRequest;
 import com.example.backend.model.User;
 import com.example.backend.model.CalcBoardMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -15,10 +19,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +41,7 @@ public class MapService {
     @Autowired
     private final CalcBoardMapRepository mapRepository;
 
-    @Value("${map.storage.path}")
+    @Value("${spring.map.storage.path}")
     private String storagePath;
 
     public MapService(UserRepository userRepository, CalcBoardMapRepository mapRepository, TilesRepository tileRepository) {
@@ -84,33 +90,90 @@ public class MapService {
                 }
             }
         }
+        saveJsonWithDTO(request, request.getMapName());
+
     }
 
     // Method to save the image and update the tile
     private void saveTileImageAndUpdateTile(Tile tile, MultipartFile tileImageFile) throws IOException {
         // Generate a unique file name using the tile ID
-        String fileName = "tile_" + tile.getMap().getMapName() + ".png";
+        String fileName = "tile_" + tile.getTilesId() + ".png";
 
-        // Save image to the volume and get the relative path
-        String imagePath = saveMapImage(tileImageFile, fileName);
+        // Save image under the correct map folder
+        String imagePath = saveMapImage(tileImageFile, fileName, tile.getMap().getMapName());
 
         // Set the image path in the Tile entity
         tile.setImg(imagePath);
 
-        // Save the tile with the image path updated
+        // Save the tile with the updated image path
         tileRepository.save(tile);
     }
 
-    // Save the map image to the volume
-    private String saveMapImage(MultipartFile file, String fileName) throws IOException {
-        File directory = new File(storagePath);
-        if (!directory.exists()) {
-            directory.mkdirs();  // Create directory if it doesn't exist
+    public void saveJsonWithDTO(MapSaveRequest request, String mapName) throws IOException {
+        // Create the DTO object
+        MapSaveRequestDto requestDTO = new MapSaveRequestDto();
+
+        // Map the basic fields
+        requestDTO.setGame(request.getGame());
+        requestDTO.setMapName(request.getMapName());
+        requestDTO.setId(request.getId());  // Assuming 'id' is part of your MapSaveRequest class
+        requestDTO.setCategories(request.getCategories());
+
+        // Map the Tiles
+        List<TileDto> tileDTOs = new ArrayList<>();
+        for (Tile tile : request.getTiles()) {
+            TileDto tileDTO = new TileDto();
+            tileDTO.setId(tile.getTilesId());       // Assuming each Tile has an ID
+            tileDTO.setImg(tile.getImg() != null ? tile.getImg() : ""); // Set Img, or empty string if null
+            tileDTO.setWords(tile.getWords() != null && !tile.getWords().isEmpty() ? tile.getWords() : new ArrayList<>(List.of(""))); // Default to empty array if no words
+            tileDTOs.add(tileDTO);
+        }
+        requestDTO.setTiles(tileDTOs);
+
+        // Serialize the DTO to JSON using Gson (or Jackson if preferred)
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(requestDTO);
+
+        // Construct the path to save the JSON file under the same directory as the images folder
+        File mapFolder = new File(storagePath, mapName);
+        File imagesFolder = new File(mapFolder, "images");
+
+        // Ensure the images folder exists (this also ensures map folder exists)
+        if (!imagesFolder.exists()) {
+            imagesFolder.mkdirs(); // Create images folder if missing
         }
 
-        Path filePath = Path.of(storagePath, fileName);
+        // Define the JSON file path in the same directory as the images folder
+        Path jsonFilePath = Paths.get(imagesFolder.getParent(), mapName + ".json");
+
+        // Write the JSON to the file
+        try (FileWriter fileWriter = new FileWriter(jsonFilePath.toFile())) {
+            fileWriter.write(json);
+        }
+
+        System.out.println("JSON file saved successfully to: " + jsonFilePath.toString());
+    }
+
+
+    // Save the map image to the correct map folder
+    private String saveMapImage(MultipartFile file, String fileName, String mapName) throws IOException {
+        // Define the path for this specific map folder
+        File mapFolder = new File(storagePath, mapName);
+        File mapImagesFolder = new File(mapFolder, "images");
+
+        // Ensure the folders exist
+        if (!mapImagesFolder.exists()) {
+            mapImagesFolder.mkdirs(); // Create /mapName/images/ folder if missing
+        }
+
+        // Define the path for the image file
+        Path filePath = Paths.get(mapImagesFolder.getAbsolutePath(), fileName);
+
+        // Copy the uploaded file to the target location
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-        return filePath.getFileName().toString();  // Return the relative file path
+
+        // Return relative path to be saved in the database (e.g., "mapName/images/fileName.png")
+        return mapName + "/images/" + fileName;
     }
 
     // Retrieve map image

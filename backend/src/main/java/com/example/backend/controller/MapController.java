@@ -11,6 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +21,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile; // For file upload
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 
 @RestController
@@ -41,6 +48,63 @@ public class MapController {
 
     @Autowired
     private UserRepository userRepository;
+
+
+    @Value("${spring.map.storage.path}")
+    private String storagePath;
+
+    @GetMapping("/download/{mapName}")
+    public ResponseEntity<InputStreamResource> downloadMap(@PathVariable String mapName) throws IOException {
+        Path mapFolderPath = Paths.get(storagePath, mapName);
+
+        // Check if folder exists
+        if (!Files.exists(mapFolderPath) || !Files.isDirectory(mapFolderPath)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Create a temporary ZIP file
+        File zipFile = Files.createTempFile("map_", ".zip").toFile();
+
+        try (FileOutputStream fos = new FileOutputStream(zipFile);
+             ZipOutputStream zos = new ZipOutputStream(fos)) {
+            zipFolder(mapFolderPath, zos, mapFolderPath);
+        }
+
+        // Prepare file for download
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(zipFile));
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + mapName + ".zip")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
+
+    private void zipFolder(Path folderPath, ZipOutputStream zos, Path basePath) throws IOException {
+        Files.walk(folderPath).forEach(path -> {
+            try {
+                String relativePath = basePath.relativize(path).toString().replace("\\", "/");
+                if (Files.isRegularFile(path)) {
+                    zos.putNextEntry(new ZipEntry(relativePath));
+                    Files.copy(path, zos);
+                    zos.closeEntry();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Error zipping folder", e);
+            }
+        });
+    }
+
+    private void addFileToZip(File file, ZipOutputStream zos, String zipEntryName) throws IOException {
+        try (FileInputStream fis = new FileInputStream(file)) {
+            zos.putNextEntry(new ZipEntry(zipEntryName.replace("\\", "/"))); // Ensure correct path format
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = fis.read(buffer)) >= 0) {
+                zos.write(buffer, 0, length);
+            }
+            zos.closeEntry();
+        }
+    }
+
 
     // This endpoint handles both the map JSON data and the uploaded image file
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
