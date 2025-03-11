@@ -54,15 +54,28 @@ public class MapController {
     private String storagePath;
 
     @GetMapping("/download/{mapName}")
-    public ResponseEntity<InputStreamResource> downloadMap(@PathVariable String mapName) throws IOException {
+    public ResponseEntity<InputStreamResource> downloadMap(
+            @PathVariable String mapName,
+            @RequestHeader(value = "Authorization", required = false) String authHeader) throws IOException
+    {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+        // Extract username from JWT token
+        String jwtToken = authHeader.replace("Bearer ", "").trim();
+        String email = jwtService.extractUsername(jwtToken);
+
+        // Find the user
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
         Path mapFolderPath = Paths.get(storagePath, mapName);
 
-        // Check if folder exists
         if (!Files.exists(mapFolderPath) || !Files.isDirectory(mapFolderPath)) {
             return ResponseEntity.notFound().build();
         }
 
-        // Create a temporary ZIP file
         File zipFile = Files.createTempFile("map_", ".zip").toFile();
 
         try (FileOutputStream fos = new FileOutputStream(zipFile);
@@ -70,7 +83,6 @@ public class MapController {
             zipFolder(mapFolderPath, zos, mapFolderPath);
         }
 
-        // Prepare file for download
         InputStreamResource resource = new InputStreamResource(new FileInputStream(zipFile));
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + mapName + ".zip")
@@ -93,17 +105,6 @@ public class MapController {
         });
     }
 
-    private void addFileToZip(File file, ZipOutputStream zos, String zipEntryName) throws IOException {
-        try (FileInputStream fis = new FileInputStream(file)) {
-            zos.putNextEntry(new ZipEntry(zipEntryName.replace("\\", "/"))); // Ensure correct path format
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = fis.read(buffer)) >= 0) {
-                zos.write(buffer, 0, length);
-            }
-            zos.closeEntry();
-        }
-    }
 
 
     // This endpoint handles both the map JSON data and the uploaded image file

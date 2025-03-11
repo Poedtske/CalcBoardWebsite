@@ -114,6 +114,52 @@ function toggleDescription(buttonElement) {
     }
 }
 
+function confirmDownload(button) {
+    if (!localStorage.getItem("token")) {
+        alert("You need to log in to download maps.");
+        return;
+    }
+
+    let mapName = button.getAttribute("data-mapname");
+    alert("Confirm download for: " + mapName);
+
+    const userConfirmed = confirm(`Are you sure you want to download the map: ${mapName}?`);
+
+    if (userConfirmed) {
+        downloadMap(mapName);
+    }
+}
+
+function downloadMap(mapName) {
+    const token = localStorage.getItem("token");
+
+    fetch(`http://localhost:8081/maps/download/${mapName}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Download failed. Please check your login status.");
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${mapName}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            alert("Download started!");
+        })
+        .catch(error => {
+            console.error("Error downloading the map:", error);
+            alert("Download failed.");
+        });
+}
 
 
 // Function to update the description

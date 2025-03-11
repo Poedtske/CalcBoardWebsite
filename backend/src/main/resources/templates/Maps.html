@@ -44,10 +44,13 @@
             <div class="map-details">
                 <h3 th:text="${map.mapName}"></h3>
                 <p th:text="'Game: ' + ${map.game}"></p>
-                <span class="description" th:text="${map.description}"></span>
+                <p class="description" th:text="'Description: ' + ${map.description}"></p>
                 <span th:class="${map.freeOrNot ? 'public-badge public' : 'public-badge private'}"
                       th:text="${map.freeOrNot ? 'Public' : 'Private'}">
                 </span>
+                <button class="download-button" th:attr="data-mapname=${map.mapName}" onclick="confirmDownload(this)">
+                    Download
+                </button>
             </div>
         </li>
     </ul>

@@ -61,10 +61,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/avmaps" ,"/api/public/**", "/public/**",
                                 "/register","/login","/validate-token",
-                                "/static/**" , "/images/**", "/**.jpg" ,
-                                "/style.css", "/styles-Home.css" ,"script.js","/maps/**", "/maps/download/**" ).permitAll() // Public access endpoints.
+                                "/static/**" , "/images/**", "/**.jpg" ,"style-maps",
+                                "/style.css", "/styles-Home.css" ,"script.js","/maps/**" ).permitAll() // Public access endpoints.
                         .requestMatchers("/api/**",  "/api/secure/**").authenticated()
-                        .requestMatchers("/maps/save","/maps").authenticated()// Require authentication for these paths.
+                        .requestMatchers("/maps/save","/maps", "/maps/download/**").authenticated()// Require authentication for these paths.
                 )
                 .httpBasic(httpBasic -> httpBasic.disable()) // Disable basic HTTP authentication.
                 .logout(logout -> logout.permitAll()); // Allow all users to log out.
