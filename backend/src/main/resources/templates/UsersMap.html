@@ -6,19 +6,19 @@
     <title>Your Maps</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/style-maps.css">
-    <script src="/script.js" defer></script>
+    <script src="/script.js"></script>
 </head>
 <body>
 
-<nav class="navbar">
-    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">&#9776;</button>
+<nav>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <ul id="nav-menu">
-        <li><a href="/" aria-label="Home">Home</a></li>
-        <li><a href="/avmaps" aria-label="Maps">Maps</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/avmaps">Maps</a></li>
         <li id="userMapsLink" style="display: none;">
-            <a href="#" onclick="navigateToMaps()" aria-label="Your Maps">Your Maps</a>
+            <a href="#" onclick="navigateToMaps()">Your Maps</a>
         </li>
-        <li><a href="#" id="loginLogoutButton" onclick="logout()" aria-label="Logout">Logout</a></li>
+        <li><a href="#" id="loginLogoutButton" onclick="openLoginPopup()">Logout</a></li>
     </ul>
 </nav>
 
@@ -33,7 +33,7 @@
                      <article class="map-details">
                         <span class="map-game" th:text="${map.game}"></span> -
                         <span th:text="${map.mapName}"></span> -
-                        <span class="description-text" th:text="${map.description}"></span> -
+                        <span class="description-text" th:text="${map.description}"></span>
                         <span class="privacy-badge"
                               th:classappend="${map.getFreeOrNot() ? 'private' : 'public'}"
                               th:text="${map.getFreeOrNot() ? 'Public' : 'Private'}">
