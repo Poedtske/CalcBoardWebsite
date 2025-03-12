@@ -18,6 +18,7 @@ function handleLoginSubmit(event) {
     const email = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
+
     fetch( `${http}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -137,6 +138,7 @@ function downloadMap(mapName) {
     const token = localStorage.getItem("token");
 
     fetch(`${http}/maps/download/${mapName}`, {
+
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`
