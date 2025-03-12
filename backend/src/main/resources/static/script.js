@@ -1,3 +1,5 @@
+let http = "http://10.2.160.151:8081";
+
 // Open the login popup
 function openLoginPopup() {
     console.log("login login")
@@ -16,7 +18,7 @@ function handleLoginSubmit(event) {
     const email = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    fetch("http://localhost:8081/login", {
+    fetch( `${http}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -134,7 +136,7 @@ function confirmDownload(button) {
 function downloadMap(mapName) {
     const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:8081/maps/download/${mapName}`, {
+    fetch(`${http}/maps/download/${mapName}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`
