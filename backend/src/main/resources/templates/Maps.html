@@ -35,28 +35,29 @@
     </div>
 </div>
 
-<div class="maps-container">
-    <ul>
-        <!-- Thymeleaf loop to render maps -->
-        <h1>Available Maps</h1>
-
-        <li th:each="map : ${maps}">
-            <div class="map-details">
-                <h3 th:text="${map.mapName}"></h3>
-                <p th:text="'Game: ' + ${map.game}"></p>
-                <p class="description" th:text="'Description: ' + ${map.description}"></p>
-                <span th:class="${map.freeOrNot ? 'public-badge public' : 'public-badge private'}"
-                      th:text="${map.freeOrNot ? 'Public' : 'Private'}">
-                </span>
-                <button class="download-button" th:attr="data-mapname=${map.mapName}" onclick="confirmDownload(this)">
-                    Download
-                </button>
-            </div>
-        </li>
-    </ul>
-</div>
-
-
+<main>
+    <h1>Available Maps</h1>
+    <section>
+        <div class="maps-container">
+            <ul>
+                <!-- Thymeleaf loop to render maps -->
+                <li th:each="map : ${maps}">
+                    <div class="map-details">
+                        <h3 th:text="${map.mapName}"></h3>
+                        <p th:text="'Game: ' + ${map.game}"></p>
+                        <p class="description" th:text="'Description: ' + ${map.description}"></p>
+                        <span th:class="${map.freeOrNot ? 'public-badge public' : 'public-badge private'}"
+                              th:text="${map.freeOrNot ? 'Public' : 'Private'}">
+                        </span>
+                        <button class="download-button" th:attr="data-mapname=${map.mapName}" onclick="confirmDownload(this)">
+                            Download
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</main>
 
 </body>
 </html>

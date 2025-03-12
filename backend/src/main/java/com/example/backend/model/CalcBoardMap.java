@@ -23,7 +23,7 @@ public class CalcBoardMap {
     private String mapName;
 
     @Column(nullable = true, length = 500)
-    private String description;
+    private String description = "User need to add description";  // Default value
 
     @Column(nullable = false)
     private boolean freeOrNot;
