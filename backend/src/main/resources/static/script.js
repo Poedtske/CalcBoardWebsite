@@ -1,4 +1,4 @@
-let http = "http://10.2.160.151:8081";
+let http = "http://localhost:8081";
 
 // Open the login popup
 function openLoginPopup() {
@@ -9,6 +9,45 @@ function openLoginPopup() {
 // Close the login popup
 function closeLoginPopup() {
     document.getElementById("loginPopup").style.display = "none";
+}
+
+// Toggle between Login and Register forms
+function toggleAuthForms() {
+    const loginForm = document.getElementById("loginFormContainer");
+    const registerForm = document.getElementById("registerFormContainer");
+
+    if (loginForm.style.display === "none") {
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
+    } else {
+        loginForm.style.display = "none";
+        registerForm.style.display = "block";
+    }
+}
+
+// Handle Register Form Submission
+async function handleRegisterSubmit(event) {
+    event.preventDefault();
+
+    const firstName = document.getElementById("regFirstName").value;
+    const lastName = document.getElementById("regLastName").value;
+    const email = document.getElementById("regUsername").value;
+    const password = document.getElementById("regPassword").value;
+    const confirmPassword = document.getElementById("regConfirmPassword").value;
+
+    if (password !== confirmPassword) {
+        document.getElementById("registerMessage").textContent = "Passwords do not match!";
+        return;
+    }
+
+    const response = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, email, password })
+    });
+
+    const result = await response.json();
+    document.getElementById("registerMessage").textContent = result.message || "Registration successful!";
 }
 
 // Handle login form submission
@@ -310,16 +349,17 @@ async function togglePrivacy(mapId) {
 }
 
 
-// Function to handle page load logic
+// Attach event listener for Register Form submission
 window.onload = function() {
-    console.log("Page loaded. Checking login state...");
-    console.log("Script.js is loaded!");
-    updateLoginLogoutButton(); // Update the button based on the current login state
+    updateLoginLogoutButton();
 
-    // Attach the login form submit event
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
         loginForm.onsubmit = handleLoginSubmit;
     }
 
+    const registerForm = document.getElementById("registerForm");
+    if (registerForm) {
+        registerForm.onsubmit = handleRegisterSubmit;
+    }
 };

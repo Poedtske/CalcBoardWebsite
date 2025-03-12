@@ -1,9 +1,3 @@
-
-h1 {
-    text-align: center;
-    color: #222;
-}
-
 /* General Container Styling */
 .user-maps-container {
     max-width: 800px;
@@ -94,21 +88,22 @@ button {
 }
 
 .toggle-privacy-btn {
-    background: #007bff;
+    background: linear-gradient(45deg, #0073e6, #00c6ff);
     color: white;
 }
 
 .toggle-privacy-btn:hover {
-    background: #0056b3;
+    background: linear-gradient(45deg, #005bb5, #0099ff);
+    transform: scale(1.02);
 }
 
 .toggle-description-btn {
-    background: #ff9800;
+    background: #f98722;
     color: white;
 }
 
 .toggle-description-btn:hover {
-    background: #e68900;
+    background: #e86d00;
 }
 
 .save-description-btn {
@@ -118,4 +113,5 @@ button {
 
 .save-description-btn:hover {
     background: #1e7e34;
+    transform: scale(1.02);
 }

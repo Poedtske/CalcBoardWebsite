@@ -22,8 +22,12 @@
     </ul>
 </nav>
 
-<main class="user-maps-container">
+<header class="hero">
     <h1>Your Maps</h1>
+</header>
+
+<main class="user-maps-container">
+
     <section>
         <ul class="maps-list">
             <th:block th:each="map : ${maps}">
@@ -59,6 +63,10 @@
         </ul>
     </section>
 </main>
+
+<footer>
+    <p>&copy; 2025 Ons Project | Alle rechten voorbehouden</p>
+</footer>
 
 </body>
 </html>
