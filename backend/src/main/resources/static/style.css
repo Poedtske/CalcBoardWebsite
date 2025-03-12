@@ -112,6 +112,7 @@ section {
     background: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
+    z-index: 2000;
 }
 
 .popup-content {
@@ -124,6 +125,7 @@ section {
     max-width: 350px;
     position: relative;
     animation: fadeInUp 0.5s ease-in-out;
+    z-index: 2000;
 }
 
 /* Close Button */
@@ -139,16 +141,6 @@ section {
 
 .close:hover {
     color: #000;
-}
-
-.popup-content {
-    background: white;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 300px;
-    position: relative;
 }
 
 .close-btn {
@@ -194,6 +186,46 @@ section {
     background: linear-gradient(45deg, #005bb5, #0099ff);
 }
 
+/* Input Fields */
+#registerForm input {
+    width: 80%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#registerForm input:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 6px rgba(0, 115, 230, 0.5);
+}
+
+/* Register Button */
+#registerForm button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #0073e6, #00c6ff);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#registerForm button:hover {
+    background: linear-gradient(45deg, #005bb5, #0099ff);
+}
+
+/* Centering the form inside the popup */
+#registerFormContainer {
+    text-align: center;
+    padding: 20px;
+}
 /* Message */
 #message {
     margin-top: 10px;
@@ -246,12 +278,10 @@ section {
 }
 
 
-.map-details:hover {
-    transform: scale(1.02);
-}
+
 
 .download-button {
-    background-color: #0073e6;
+    background: linear-gradient(45deg, #0073e6, #00c6ff);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -262,7 +292,8 @@ section {
 }
 
 .download-button:hover {
-    background-color: #005bb5;
+    background: linear-gradient(45deg, #005bb5, #0099ff);
+    transform: scale(1.02);
 }
 
 /* Footer */
