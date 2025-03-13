@@ -52,10 +52,10 @@ public class AuthController {
         var userDetails = userDetailsService.loadUserByUsername(username);
 
         if (!jwtService.isTokenValid(token, userDetails)) {
-            return ResponseEntity.status(401).body("Token expired or invalid");
+            return ResponseEntity.status(404).body("Token expired or invalid");
         }
 
-        return ResponseEntity.ok("Token is valid");
+        return ResponseEntity.status(200).body("user valid");
     }
 
 
