@@ -1,0 +1,37 @@
+# .github/workflows/docker-ci.yml
+
+name: Docker CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml up -d
+
+      - name: Wait for services to be healthy
+        run: |
+          echo "Waiting for containers..."
+          sleep 20
+          docker ps
+
+      - name: Test backend endpoint
+        run: |
+          curl --fail http://localhost:8080/actuator/health || exit 1
+
+      - name: Test frontend
+        run: |
+          curl --fail http://localhost || exit 1
+
+      - name: Shut down
+        run: docker-compose down
